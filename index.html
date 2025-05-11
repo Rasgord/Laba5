@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Погода в Лондоні</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    #weatherInfo {
+      margin-top: 20px;
+      background: #f0f0f0;
+      padding: 15px;
+      border-radius: 8px;
+      width: fit-content;
+    }
+  </style>
+</head>
+<body>
+  <h1>Перевірити погоду в Лондоні</h1>
+  <button id="getWeather">Отримати погоду</button>
+  <div id="weatherInfo"></div>
+
+  <script>
+    document.getElementById('getWeather').addEventListener('click', () => {
+      const apiKey = 'ffc040a2bb31d010e98e90e189d403a3'; // ← твій API-ключ
+      const city = 'London';
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=ua`;
+
+      fetch(url)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Помилка завантаження даних');
+          }
+          return response.json();
+        })
+        .then(data => {
+          const temperature = data.main.temp;
+          const humidity = data.main.humidity;
+          const windSpeed = data.wind.speed;
+
+          document.getElementById('weatherInfo').innerHTML = `
+            <p><strong>Температура:</strong> ${temperature}°C</p>
+            <p><strong>Вологість:</strong> ${humidity}%</p>
+            <p><strong>Швидкість вітру:</strong> ${windSpeed} м/с</p>
+          `;
+        })
+        .catch(error => {
+          document.getElementById('weatherInfo').innerText = 'Не вдалося завантажити погоду.';
+          console.error('Помилка:', error);
+        });
+    });
+  </script>
+</body>
+</html>
