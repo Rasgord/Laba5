@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Завантажити додаток</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #d0f0e0, #f8fdfa);
+      overflow-x: hidden;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+    header {
+      background-color: #2ecc71; color: white;
+      padding: 1rem;
+      display: flex; justify-content: space-between; align-items: center;
+      position: relative; z-index: 1001;
+    }
+    .logo { font-size: 1.5rem; font-weight: bold; }
+    nav ul {
+      display: flex; list-style: none; margin: 0; padding: 0;
+    }
+    nav ul li { margin-left: 1rem; }
+    nav ul li a {
+      color: white; text-decoration: none;
+      padding: 0.5rem 1rem; display: block;
+    }
+    .hamburger {
+      display: none; flex-direction: column; cursor: pointer;
+    }
+    .hamburger div {
+      width: 25px; height: 3px; background-color: white;
+      margin: 4px 0;
+    }
+    .overlay {
+      position: fixed; top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.3s ease;
+      z-index: 1000;
+    }
+    .overlay.active { opacity: 1; visibility: visible; }
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
+      nav ul {
+        flex-direction: column;
+        background-color: #2ecc71;
+        position: absolute; top: 60px; right: -80vw;
+        width: 80vw;
+        opacity: 0;
+        transition: right 0.3s ease, opacity 0.3s ease;
+        z-index: 1002;
+      }
+      nav ul.active {
+        right: 0;
+        opacity: 1;
+      }
+      nav ul li {
+        margin: 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+      }
+    }
+    .content {
+      max-width: 800px;
+      margin: 3rem auto;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+      animation: fadeIn 0.6s ease;
+    }
+    .content h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #2c3e50;
+    }
+    .content a {
+      color: #2ecc71;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    .content a:hover {
+      text-decoration: underline;
+    }
+    hr {
+      margin: 2rem 0;
+      border: none;
+      border-top: 1px solid #ddd;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Здоров'я+</div>
+    <nav>
+      <div class="hamburger" onclick="toggleMenu()"><div></div><div></div><div></div></div>
+      <ul id="nav-links">
+        <li><a href="index.html" onclick="closeMenu()">Головна</a></li>
+        <li><a href="features.html" onclick="closeMenu()">Функції</a></li>
+        <li><a href="download.html" onclick="closeMenu()">Завантажити</a></li>
+        <li><a href="contact.html" onclick="closeMenu()">Контакти</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
+  <div class="content">
+    <h1>⬇ Завантажити додаток</h1>
+    <p>Наш мобільний додаток доступний на основних платформах:</p>
+    <ul>
+      <li>📱 <a href="#">Google Play (Android)</a></li>
+      <li>🍏 <a href="#">App Store (iOS)</a></li>
+    </ul>
+    <hr>
+    <p><a href="index.html">← Назад на головну</a></p>
+  </div>
+
+  <script>
+    const navLinks = document.getElementById('nav-links');
+    const overlay = document.getElementById('overlay');
+    function toggleMenu() {
+      navLinks.classList.toggle('active');
+      overlay.classList.toggle('active');
+    }
+    function closeMenu() {
+      navLinks.classList.remove('active');
+      overlay.classList.remove('active');
+    }
+  </script>
+</body>
+</html>
